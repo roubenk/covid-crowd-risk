@@ -80,6 +80,7 @@ attendees = html.Div([
     dcc.Slider(
         id="attendee-slider",
         marks={i: '{}'.format(10 ** i) for i in range(4)},
+        min=0,
         max=3,
         value=1,
         step=0.01,
