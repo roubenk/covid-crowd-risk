@@ -69,6 +69,7 @@ COUNTY_OPTIONS = get_counties()
 COUNTY_POPS = get_county_pops()
 
 county_dropdown = html.Div([
+    html.Div("Select your county"),
     dcc.Dropdown(
         id="county-dropdown",
         options=COUNTY_OPTIONS,
@@ -77,6 +78,10 @@ county_dropdown = html.Div([
 ])
 
 attendees = html.Div([
+    html.Div(
+        "",
+        id="attendee-label"
+    ),
     dcc.Slider(
         id="attendee-slider",
         marks={i: '{}'.format(10 ** i) for i in range(4)},
@@ -117,7 +122,7 @@ app.layout = html.Div([
      Input("attendee-slider", "value")]
 )
 def update_result(county, attendees):
-    attendees = 10**attendees
+    attendees = round(10**attendees)
     print("Attendees: ", attendees)
     population = COUNTY_POPS[county]
     print("Population: ", population)
@@ -130,6 +135,18 @@ def update_result(county, attendees):
     print(risk)
     return risk
 
+
+@app.callback(
+    Output("attendee-label", "children"),
+    [Input("attendee-slider", "value")]
+)
+def update_attendee_label(attendees):
+    attendees = round(10**attendees)
+    people = "people"
+    if attendees == 1:
+        people = "person (just yourself)"
+    label = "{number} {people} attending".format(number=attendees, people=people)
+    return label
 
 if __name__ == '__main__':
     app.run_server(debug=True)
