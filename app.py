@@ -95,14 +95,14 @@ result = html.Div(
 
 app.layout = html.Div([
     html.Div(id="cases", hidden=True),  # Hidden div to hold number of cases
-    dbc.Container(
+    dbc.Container( # HEADER
         dbc.Row(dbc.Col([
             html.H1("Know Your COVID-19 Exposure Risk"),
-            html.H4("Attending a gathering in California?"),
-            html.H4("Find out the risk that at least one infected person will be present.")
+            html.H5("Attending a gathering in California?"),
+            html.H5("Find out the risk that at least one infected person will be present.")
             ]))
     ),
-    dbc.Container(
+    dbc.Container(  # CALCULATOR
         dbc.Row([
             dbc.Col([
                 dbc.Row(dbc.Col(county_dropdown)),
@@ -115,6 +115,27 @@ app.layout = html.Div([
                 ])
             )
         ])
+    ),
+    dbc.Container(  # DESCRIPTION
+        dbc.Row(dbc.Col([
+            html.P("What is this?"),
+            html.P([
+                html.Span(
+                    "This calcaulator measures the probability that at least one person " \
+                    "with a COVID-19 infection will be in attendance at a gathering."
+                ),
+                html.Br(),
+                html.Span(
+                    "The calculation is based on the prevalence of active COVID-19 " \
+                    "cases in each California county and the number of people in " \
+                    "attendance."
+                ),
+                html.Br(),
+                html.Span("The following formula determines the probability:  "),
+                html.Img(src="assets/images/eqn.png"),
+                html.Span(".")
+            ])
+        ]))
     )
 ])
 
