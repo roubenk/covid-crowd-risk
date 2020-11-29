@@ -160,25 +160,32 @@ app.layout = html.Div([
     className="calculator"
     ),
     dbc.Container(  # DESCRIPTION
-        dbc.Row(dbc.Col([
-            html.H5("What is this?"),
-            html.P([
-                html.Span(
-                    "This calcaulator measures the probability that at least one person " \
-                    "with a COVID-19 infection will be in attendance at a gathering."
-                ),
-                html.Br(),
-                html.Span(
-                    "The calculation is based on the prevalence of active COVID-19 " \
-                    "cases in each California county and the number of people in " \
-                    "attendance."
-                ),
-                html.Br(),
-                html.Span("The following formula determines the probability:  "),
-                html.Img(src="assets/images/eqn.png", style={"padding-left": 10}),
-                html.Span(".")
+        dbc.Row([
+            dbc.Col(
+                html.Img(src="assets/images/virus.png", style={"padding-right": 10, "height": "10rem"}),
+                width="auto"
+            ),
+            dbc.Col([
+                html.H5("What is this?"),
+                html.P([
+                    html.Span(
+                        "This calcaulator measures the probability that at least one person " \
+                        "with a COVID-19 infection will be in attendance at a gathering."
+                    ),
+                    html.Br(),
+                    html.Span(
+                        "The calculation is based on the prevalence of active COVID-19 " \
+                        "cases in each California county and the number of people in " \
+                        "attendance."
+                    ),
+                    html.Br(),
+                    html.Span("The following formula determines the probability:  "),
+                    html.Img(src="assets/images/eqn.png", style={"padding-left": 10}),
+                    html.Span(".")
+                ])
             ])
-        ])),
+        ],
+        align="center"),
     className="description"
     ),
     dbc.Container(  # FOOTER
