@@ -104,36 +104,43 @@ result = html.Div(
 
 
 app.layout = html.Div([
+    html.Div(id="cases", hidden=True),  # Hidden div to hold number of cases
     dbc.Container(
         dbc.Row([
             dbc.Col([
                 dbc.Row(dbc.Col(county_dropdown)),
                 dbc.Row(dbc.Col(attendees))
             ]),
-            dbc.Col(result)
+            dbc.Col(
+                dbc.Row([
+                    dbc.Col(result),
+                    dbc.Col(html.H3(id="result-label"))
+                ])
+            )
         ])
     )
 ])
 
 
 @app.callback(
-    Output("result-thermometer", "value"),
+    [Output("result-thermometer", "value"),
+     Output("result-label", "children"),
+     Output("cases", "children")],
     [Input("county-dropdown", "value"),
-     Input("attendee-slider", "value")]
+     Input("attendee-slider", "value")],
+    [State("cases", "children")]
 )
-def update_result(county, attendees):
+def update_result(county, attendees, cases):
+    ctx = dash.callback_context
+    if ctx.triggered[0]['prop_id'].split('.')[0] == "county-dropdown" or cases is None:
+        cases = get_covid_data(county)
     attendees = round(10**attendees)
-    print("Attendees: ", attendees)
     population = COUNTY_POPS[county]
-    print("Population: ", population)
-    cases = get_covid_data(county)
-    print("Cases: ", cases)
     prevalence = round(cases/population, 3)
-    print(prevalence)
     risk = (1-((1-(prevalence))**attendees))*100  # Percent
     risk = round(risk, 2)
-    print(risk)
-    return risk
+    label = "{}".format(str(risk) + " %")
+    return risk, label, cases
 
 
 @app.callback(
@@ -147,6 +154,7 @@ def update_attendee_label(attendees):
         people = "person (just yourself)"
     label = "{number} {people} attending".format(number=attendees, people=people)
     return label
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
