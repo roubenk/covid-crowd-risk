@@ -13,22 +13,8 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 
-def get_counties():
-    # Get list of Calif. counties from CA.gov database API
-    url = "https://data.ca.gov/api/3/action/datastore_search_sql"
-    params = dict(
-        sql = "SELECT DISTINCT(county) FROM \"926fd08f-cc91-4828-af38-bd45de97f8c3\""
-    )
-    resp = requests.get(url, params=params)
-    data = resp.json()
-    counties = data['result']['records']
-    options = [{'label': county['county'], 'value': county['county']}
-               for county in counties]
-    return options
-
-
-def get_county_pops():
-    # Get a dict of counties and their respective populations from the US Census
+def get_county_info():
+    # Get a dict of Calif. counties and their respective populations from the US Census
     url = "https://api.census.gov/data/2019/pep/population"
     params = {
         "get": "NAME,POP",
@@ -38,13 +24,19 @@ def get_county_pops():
     resp = requests.get(url, params=params)
     status = resp.status_code
     data = resp.json()
-    # Create dictionary of county names and populations
+    # Create dictionary of county names and corresponding populations
     pops = {}
     for county in data[1:]:  # Skip header
-        name = re.findall(".+?(?= County)", county[0])[0]
+        name = re.findall(".+?(?= County)", county[0])[0]  # Clean county name (i.e. "Yolo County, California" -> "Yolo")
         pop = int(county[1])
         pops[name] = pop
-    return pops
+    # Create list of dicts of county names for dropwdown menu
+    counties = pops.keys()
+    counties = sorted(counties)
+    menu = [{'label': county, 'value': county}
+               for county in counties]
+    print(menu)
+    return pops, menu
 
 
 def get_covid_data(county):
@@ -65,14 +57,13 @@ def get_covid_data(county):
     return int(cases)
 
 
-COUNTY_OPTIONS = get_counties()
-COUNTY_POPS = get_county_pops()
+COUNTY_POPS, COUNTY_MENU = get_county_info()
 
 county_dropdown = html.Div([
     html.Div("Select your county"),
     dcc.Dropdown(
         id="county-dropdown",
-        options=COUNTY_OPTIONS,
+        options=COUNTY_MENU,
         value="Los Angeles"
     )
 ])
@@ -135,7 +126,7 @@ def update_result(county, attendees, cases):
     if ctx.triggered[0]['prop_id'].split('.')[0] == "county-dropdown" or cases is None:
         cases = get_covid_data(county)
     attendees = round(10**attendees)
-    population = COUNTY_POPS[county]
+    population = COUNTY_POPS.get(county)  # Safetly get value from dictionary (returns None if item not found)
     prevalence = round(cases/population, 3)
     risk = (1-((1-(prevalence))**attendees))*100  # Percent
     risk = round(risk, 2)
