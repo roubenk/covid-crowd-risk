@@ -185,7 +185,8 @@ app.layout = html.Div([
                 ])
             ])
         ],
-        align="center"),
+        align="center"
+        ),
     className="description"
     ),
     dbc.Container(  # FOOTER
