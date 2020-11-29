@@ -9,9 +9,18 @@ import re
 
 external_stylesheets = [dbc.themes.BOOTSTRAP, "https://fonts.googleapis.com/css2?family=Lato&display=swap"]
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(
+        __name__,
+        external_stylesheets=external_stylesheets,
+        meta_tags=[
+        {
+            "name": "viewport",
+            "content": "maximum-scale=1.0, initial-scale=1.0, width=device-width"
+        }]
+)
 app.title = "Covid-19 Exposure Risk"
 server = app.server
+app.head = [html.Meta(content="maximum-scale=1.0, initial-scale=1.0, width=device-width", name="viewport")]
 
 
 def get_county_info():
@@ -88,9 +97,10 @@ attendees_slider = html.Div([
     )
 ])
 
-result_label = html.Div(
-    html.H3(id="result-label")
-)
+result_label = html.Div([
+    html.H3(id="result-label"),
+    html.H6("chance of exposure")
+])
 
 result = html.Div(
     daq.Thermometer(
@@ -129,7 +139,7 @@ app.layout = html.Div([
     ),
     dbc.Container(  # CALCULATOR
         dbc.Row([
-            dbc.Col([
+            dbc.Col([ # INPUTS
                 dbc.Row(
                     dbc.Col(county_dropdown_label, width=7),
                     className="pb-2 justify-content-lg-end justify-content-center"),
@@ -144,7 +154,7 @@ app.layout = html.Div([
                     className="pb-5 justify-content-lg-end justify-content-center")
             ], lg=True
             ),
-            dbc.Col(
+            dbc.Col( # RESULT
                 dbc.Row([
                     dbc.Col(result, width={"size": 2, "offset": 2}),
                     dbc.Col(result_label, width=4)
@@ -161,10 +171,6 @@ app.layout = html.Div([
     ),
     dbc.Container(  # DESCRIPTION
         dbc.Row([
-            dbc.Col(
-                html.Img(src="assets/images/virus.png", style={"padding-right": 10, "height": "8rem"}),
-                width="auto"
-            ),
             dbc.Col([
                 html.H5("What is this?"),
                 html.P([
@@ -183,7 +189,13 @@ app.layout = html.Div([
                     html.Img(src="assets/images/eqn.png", style={"padding-left": 10}),
                     html.Span(".")
                 ])
-            ])
+            ],
+            md=True),
+            dbc.Col(
+                html.Img(src="assets/images/virus.png", style={"padding-right": 10, "height": "8rem"}),
+                className="col-md-auto order-md-first py-md-0 py-5",
+                style={"text-align": "center"}
+            )
         ],
         align="center"
         ),
