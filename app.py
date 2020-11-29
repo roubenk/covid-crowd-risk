@@ -58,8 +58,11 @@ def get_covid_data(county):
 
 COUNTY_POPS, COUNTY_MENU = get_county_info()
 
+county_dropdown_label = html.Div(
+    "Select your county"
+)
+
 county_dropdown = html.Div([
-    html.Div("Select your county"),
     dcc.Dropdown(
         id="county-dropdown",
         options=COUNTY_MENU,
@@ -67,11 +70,12 @@ county_dropdown = html.Div([
     )
 ])
 
-attendees = html.Div([
-    html.Div(
-        "",
-        id="attendee-label"
-    ),
+attendees_label = html.Div(
+    "",
+    id="attendee-label"
+)
+
+attendees_slider = html.Div([
     dcc.Slider(
         id="attendee-slider",
         marks={i: '{}'.format(10 ** i) for i in range(4)},
@@ -82,6 +86,10 @@ attendees = html.Div([
         updatemode="drag"
     )
 ])
+
+result_label = html.Div(
+    html.H3(id="result-label")
+)
 
 result = html.Div(
     daq.Thermometer(
@@ -100,25 +108,34 @@ app.layout = html.Div([
             html.H1("Know Your COVID-19 Exposure Risk"),
             html.H5("Attending a gathering in California?"),
             html.H5("Find out the risk that at least one infected person will be present.")
-            ]))
+            ])),
+    className="header"
     ),
     dbc.Container(  # CALCULATOR
         dbc.Row([
             dbc.Col([
-                dbc.Row(dbc.Col(county_dropdown)),
-                dbc.Row(dbc.Col(attendees))
+                dbc.Row(dbc.Col(county_dropdown_label, width=7), className="pb-2", justify="end"),
+                dbc.Row(dbc.Col(county_dropdown, width=7), className="pb-5", justify="end"),
+                dbc.Row(dbc.Col(attendees_label, width=7), className="pb-2", justify="end"),
+                dbc.Row(dbc.Col(attendees_slider, width=7, className="pl-0 pr-0"), justify="end")
             ]),
             dbc.Col(
                 dbc.Row([
-                    dbc.Col(result),
-                    dbc.Col(html.H3(id="result-label"))
-                ])
+                    dbc.Col(result, width={"size": 2, "offset": 2}),
+                    dbc.Col(result_label, width=4)
+                ],
+                justify="start",
+                align="center"
+                )
             )
-        ])
+        ],
+        justify="center"
+        ),
+    className="calculator"
     ),
     dbc.Container(  # DESCRIPTION
         dbc.Row(dbc.Col([
-            html.P("What is this?"),
+            html.H6("What is this?"),
             html.P([
                 html.Span(
                     "This calcaulator measures the probability that at least one person " \
@@ -135,7 +152,32 @@ app.layout = html.Div([
                 html.Img(src="assets/images/eqn.png"),
                 html.Span(".")
             ])
-        ]))
+        ])),
+    className="description"
+    ),
+    dbc.Container(  # FOOTER
+        dbc.Row([
+            dbc.Col(
+                html.P("Data from the State of California and the US Census Bureau"),
+                width="auto",
+                align="end",
+                style={"text-align": "left"}
+            ),
+            dbc.Col(
+                html.P("Icon and image attributions"),
+                align="end",
+                style={"text-align": "center"}
+            ),
+            dbc.Col(
+                html.P("Created by Rouben K."),
+                align="end",
+                style={"text-align": "right"}
+            )
+        ],
+        justify="between"
+        ),
+    className="footer",
+    fluid=False
     )
 ])
 
