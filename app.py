@@ -162,7 +162,7 @@ app.layout = html.Div([
     dbc.Container(  # DESCRIPTION
         dbc.Row([
             dbc.Col(
-                html.Img(src="assets/images/virus.png", style={"padding-right": 10, "height": "10rem"}),
+                html.Img(src="assets/images/virus.png", style={"padding-right": 10, "height": "8rem"}),
                 width="auto"
             ),
             dbc.Col([
