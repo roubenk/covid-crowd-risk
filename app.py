@@ -10,6 +10,7 @@ import re
 external_stylesheets = [dbc.themes.BOOTSTRAP, "https://fonts.googleapis.com/css2?family=Lato&display=swap"]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app.title = "Covid-19 Exposure Risk"
 server = app.server
 
 
@@ -101,6 +102,20 @@ result = html.Div(
     )
 )
 
+data_attribution = html.Div([
+    html.Span("Data from the "),
+    html.A("State of California", href="https://www.ca.gov/", target="_blank"),
+    html.Span(" and the "),
+    html.A("US Census Bureau", href="https://www.census.gov/", target="_blank")
+])
+
+icon_attribution = html.Div([
+    html.Span("Icons made by "),
+    html.A("Freepik", href="https://www.flaticon.com/authors/freepik", target="_blank"),
+    html.Span(" from "),
+    html.A("flaticon.com", href="https://www.flaticon.com/", target="_blank")
+])
+
 
 app.layout = html.Div([
     html.Div(id="cases", hidden=True),  # Hidden div to hold number of cases
@@ -169,13 +184,13 @@ app.layout = html.Div([
     dbc.Container(  # FOOTER
         dbc.Row([
             dbc.Col(
-                html.P("Data from the State of California and the US Census Bureau"),
+                html.P(data_attribution),
                 className="col-lg-auto",
                 align="end",
                 style={"text-align": "left"},
             ),
             dbc.Col(
-                html.P("Icon and image attributions"),
+                html.P(icon_attribution),
                 lg=True,
                 align="end",
                 style={"text-align": "center"},
