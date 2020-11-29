@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output, State
 import requests
 import re
 
-external_stylesheets = [dbc.themes.BOOTSTRAP]
+external_stylesheets = [dbc.themes.BOOTSTRAP, "https://fonts.googleapis.com/css2?family=Lato&display=swap"]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
@@ -135,7 +135,7 @@ app.layout = html.Div([
     ),
     dbc.Container(  # DESCRIPTION
         dbc.Row(dbc.Col([
-            html.H6("What is this?"),
+            html.H5("What is this?"),
             html.P([
                 html.Span(
                     "This calcaulator measures the probability that at least one person " \
@@ -149,7 +149,7 @@ app.layout = html.Div([
                 ),
                 html.Br(),
                 html.Span("The following formula determines the probability:  "),
-                html.Img(src="assets/images/eqn.png"),
+                html.Img(src="assets/images/eqn.png", style={"padding-left": 10}),
                 html.Span(".")
             ])
         ])),
