@@ -114,19 +114,29 @@ app.layout = html.Div([
     dbc.Container(  # CALCULATOR
         dbc.Row([
             dbc.Col([
-                dbc.Row(dbc.Col(county_dropdown_label, width=7), className="pb-2", justify="end"),
-                dbc.Row(dbc.Col(county_dropdown, width=7), className="pb-5", justify="end"),
-                dbc.Row(dbc.Col(attendees_label, width=7), className="pb-2", justify="end"),
-                dbc.Row(dbc.Col(attendees_slider, width=7, className="pl-0 pr-0"), justify="end")
-            ]),
+                dbc.Row(
+                    dbc.Col(county_dropdown_label, width=7),
+                    className="pb-2 justify-content-lg-end justify-content-center"),
+                dbc.Row(
+                    dbc.Col(county_dropdown, width=7),
+                    className="pb-5 justify-content-lg-end justify-content-center"),
+                dbc.Row(
+                    dbc.Col(attendees_label, width=7),
+                    className="pb-2 justify-content-lg-end justify-content-center"),
+                dbc.Row(
+                    dbc.Col(attendees_slider, width=7, className="pl-0 pr-0 "),
+                    className="pb-5 justify-content-lg-end justify-content-center")
+            ], lg=True
+            ),
             dbc.Col(
                 dbc.Row([
                     dbc.Col(result, width={"size": 2, "offset": 2}),
                     dbc.Col(result_label, width=4)
                 ],
-                justify="start",
+                className="justify-content-lg-start justify-content-center",
                 align="center"
-                )
+                ),
+                lg=True
             )
         ],
         justify="center"
@@ -159,23 +169,23 @@ app.layout = html.Div([
         dbc.Row([
             dbc.Col(
                 html.P("Data from the State of California and the US Census Bureau"),
-                width="auto",
+                className="col-lg-auto",
                 align="end",
-                style={"text-align": "left"}
+                style={"text-align": "left"},
             ),
             dbc.Col(
                 html.P("Icon and image attributions"),
+                lg=True,
                 align="end",
-                style={"text-align": "center"}
+                style={"text-align": "center"},
             ),
             dbc.Col(
                 html.P("Created by Rouben K."),
+                lg=True,
                 align="end",
-                style={"text-align": "right"}
+                style={"text-align": "right"},
             )
-        ],
-        justify="between"
-        ),
+        ]),
     className="footer",
     fluid=False
     )

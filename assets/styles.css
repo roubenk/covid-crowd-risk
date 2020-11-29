@@ -1,6 +1,16 @@
 
 body {
   font-family: 'Lato', sans-serif;
+  /*background-color: #e8e8e8;*/
+  color: #222831;
+}
+
+h1 {
+  color: #f05454;
+}
+
+h5 {
+  color: #30475e;
 }
 
 .header {
@@ -22,4 +32,10 @@ body {
 
 .footer {
   padding-top: 2rem;
+}
+
+@media screen and (max-width: 1000px){
+    .footer p{
+        text-align: center;
+    }
 }
