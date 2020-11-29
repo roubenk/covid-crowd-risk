@@ -1,7 +1,7 @@
 
 body {
   font-family: 'Lato', sans-serif;
-  /*background-color: #e8e8e8;*/
+  background-color: #e8e8e8;
   color: #222831;
 }
 
@@ -9,8 +9,16 @@ h1 {
   color: #f05454;
 }
 
+h3 {
+  color: #222831;
+}
+
 h5 {
   color: #30475e;
+}
+
+h6 {
+  font-size: 1.2rem;
 }
 
 .header {
@@ -32,6 +40,50 @@ h5 {
 
 .footer {
   padding-top: 2rem;
+}
+
+/* Thermometer background */
+.sc-hMqMXs.gKtGrM.daq-thermometer--light__container {
+  background: white;
+}
+
+/* Slider background */
+.rc-slider-step  {
+  background-color: transparent;
+}
+
+/* Slider dots */
+.rc-slider-dot.rc-slider-dot-active {
+  border-color: #f05454;
+  background-color: #f05454;
+}
+.rc-slider-dot {
+  border-color: white;
+}
+.rc-slider-handle {
+  border-color: #f05454;
+  background-color: white;
+}
+.rc-slider-handle:hover {
+  border-color: #f05454;
+  background-color: white;
+}
+.rc-slider-handle:focus {
+  border-color: #f05454;
+  background-color: white;
+}
+.rc-slider-handle:active {
+  box-shadow: 0 0  5px #f05454;
+}
+
+/* Slider track */
+.rc-slider-track {
+  background-color: #f05454;
+}
+
+/* Slider rail */
+.rc-slider-rail {
+  background-color: white;
 }
 
 @media screen and (max-width: 1000px){

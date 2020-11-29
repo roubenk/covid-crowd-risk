@@ -58,7 +58,7 @@ def get_covid_data(county):
 
 COUNTY_POPS, COUNTY_MENU = get_county_info()
 
-county_dropdown_label = html.Div(
+county_dropdown_label = html.H6(
     "Select your county"
 )
 
@@ -70,7 +70,7 @@ county_dropdown = html.Div([
     )
 ])
 
-attendees_label = html.Div(
+attendees_label = html.H6(
     "",
     id="attendee-label"
 )
@@ -96,7 +96,8 @@ result = html.Div(
         id="result-thermometer",
         value=0,
         min=0,
-        max=100
+        max=100,
+        color= "#f05454"
     )
 )
 
@@ -222,7 +223,10 @@ def update_attendee_label(attendees):
     people = "people"
     if attendees == 1:
         people = "person (just yourself)"
-    label = "{number} {people} attending".format(number=attendees, people=people)
+    label = html.Span([
+        html.Strong("{number} ".format(number=attendees)),
+        "{people} attending".format(people=people)
+        ])
     return label
 
 
