@@ -22,7 +22,7 @@ def get_county_info():
         "in": "state:06"  # 06 == California
     }
     resp = requests.get(url, params=params)
-    status = resp.status_code
+    #status = resp.status_code
     data = resp.json()
     # Create dictionary of county names and corresponding populations
     pops = {}
@@ -35,7 +35,6 @@ def get_county_info():
     counties = sorted(counties)
     menu = [{'label': county, 'value': county}
                for county in counties]
-    print(menu)
     return pops, menu
 
 
@@ -51,7 +50,7 @@ def get_covid_data(county):
               """.format(county=county)
     )
     resp = requests.get(url, params=params)
-    status = resp.status_code
+    #status = resp.status_code
     data = resp.json()
     cases = data['result']['records'][0]['sum']
     return int(cases)
@@ -96,6 +95,13 @@ result = html.Div(
 
 app.layout = html.Div([
     html.Div(id="cases", hidden=True),  # Hidden div to hold number of cases
+    dbc.Container(
+        dbc.Row(dbc.Col([
+            html.H1("Know Your COVID-19 Exposure Risk"),
+            html.H4("Attending a gathering in California?"),
+            html.H4("Find out the risk that at least one infected person will be present.")
+            ]))
+    ),
     dbc.Container(
         dbc.Row([
             dbc.Col([
