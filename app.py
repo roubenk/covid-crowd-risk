@@ -186,8 +186,8 @@ app.layout = html.Div([
                     ),
                     html.Br(),
                     html.Span("The following formula determines the probability:  "),
-                    html.Img(src="assets/images/eqn.png", style={"padding-left": 10}),
-                    html.Span(".")
+                    html.Img(src="assets/images/eqn.svg", style={"padding-left": 10, "height": "2.6rem"}),
+                    html.Span(" .")
                 ])
             ],
             md=True),

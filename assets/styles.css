@@ -43,6 +43,12 @@ h6 {
   font-size: 0.8rem;
 }
 
+/* Dropdown menu */
+.is-focused:not(.is-open)>.Select-control {
+  border-color: transparent;
+  box-shadow: none;
+}
+
 /* Thermometer background */
 .sc-hMqMXs.gKtGrM.daq-thermometer--light__container {
   background: white;
