@@ -184,9 +184,9 @@ app.layout = html.Div([
                     # ),
                     # html.Strong("contracting "),
                     # html.Span(
-                    #     "COVID-19; that " \
-                    #     "is based on factors like the setting of the gathering (indoor " \
-                    #     "vs. outdoor), your proximity to other people, and mask wearing."
+                    #     "COVID-19. That " \
+                    #     "is based on factors like the setting of the gathering, " \
+                    #     "your proximity to other people, and mask wearing."
                     # ),
                     # html.Br(),
                     html.Span(
