@@ -175,10 +175,20 @@ app.layout = html.Div([
                 html.H5("What is this?"),
                 html.P([
                     html.Span(
-                        "This calcaulator measures the probability that at least one person " \
+                        "This calculator measures the probability that at least one person " \
                         "with a COVID-19 infection will be in attendance at a gathering."
                     ),
                     html.Br(),
+                    # html.Span(
+                    #     "This is not the probability of "
+                    # ),
+                    # html.Strong("contracting "),
+                    # html.Span(
+                    #     "COVID-19; that " \
+                    #     "is based on factors like the setting of the gathering (indoor " \
+                    #     "vs. outdoor), your proximity to other people, and mask wearing."
+                    # ),
+                    # html.Br(),
                     html.Span(
                         "The calculation is based on the prevalence of active COVID-19 " \
                         "cases in each California county and the number of people in " \
@@ -244,7 +254,7 @@ def update_result(county, attendees, cases):
     population = COUNTY_POPS.get(county)  # Safetly get value from dictionary (returns None if item not found)
     prevalence = round(cases/population, 3)
     risk = (1-((1-(prevalence))**attendees))*100  # Percent
-    risk = round(risk, 2)
+    risk = round(risk)
     label = "{}".format(str(risk) + " %")
     return risk, label, cases
 
